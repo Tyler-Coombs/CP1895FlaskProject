@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tyler's Top 5</title>
+</head>
+<body>
+    <h1>Tyler's Top 5 Albums</h1>
+    <h2>Here is what I am currently listening to:</h2>
+    {% for image in images %}
+        <img src="static/album_covers/{{image[3]}}">
+        <h2>Artist: {{image[1]}}</h2>
+        <h2>Title: {{image[0]}}</h2>
+        <h3>Genre: {{image[2]}}</h3>
+        <br>
+    {% endfor %}
+
+</body>
+</html>
