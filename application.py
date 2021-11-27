@@ -16,11 +16,13 @@ conn = sqlite3.connect("albums.db", check_same_thread=False)
 @app.route("/home")
 @app.route("/")
 def index():
-    return render_template("index.html")
+    heading = "Tyler's Top 5"
+    return render_template("index.html", heading=heading)
 
 
 @app.route("/albums")
 def albums():
+    heading = "Tyler's Top 5"
     with closing(conn.cursor()) as c:
         query = "SELECT * from Albums"
         c.execute(query)
@@ -28,17 +30,48 @@ def albums():
         images = []
         for result in results:
             images.append((result[1], result[2], result[3], result[4]))
-    return render_template("albums.html", images=images)
+    return render_template("albums.html", images=images, heading=heading)
 
 
 @app.route("/update")
 def update():
-    return render_template("update.html")
+    heading = "Update"
+    return render_template("update.html", heading=heading)
+
+
+@app.route("/update", methods=['post'])
+def getFormData():
+    uploaded_file = request.files["file"]
+    filename = secure_filename(uploaded_file.filename)
+    album_title = request.values["album_title"]
+    artist = request.values["album_artist"]
+    genre = request.values["genre"]
+    if filename != '':
+        file_ext = os.path.splitext(filename)[1]
+        if file_ext not in app.config['UPLOAD_EXTENSIONS']:
+            abort(400)
+        uploaded_file.save(os.path.join(app.config['UPLOAD_PATH'], filename))
+        with closing(conn.cursor()) as c:
+            query = f"INSERT into Albums(album_title, artist, genre, cover_path) Values(?,?,?,?)"
+            c.execute(query, (album_title, artist, genre, filename))
+            conn.commit()
+    return redirect("albums")
 
 
 @app.route("/remove")
 def remove():
-    return render_template("remove.html")
+    heading = "Remove An Album"
+    return render_template("remove.html", heading=heading)
+
+
+@app.route("/remove", methods=['post'])
+def getFormData():
+    album_title = request.values["album_title"]
+    with closing(conn.cursor()) as c:
+        query = f"DELETE from Albums WHERE album_title=?"
+        c.execute(query, album_title)
+        conn.commit()
+    return redirect("albums")
 
 
 def validate_album(stream):

@@ -5,7 +5,17 @@
     <title>Remove</title>
 </head>
 <body>
-<h1>Remove Page</h1>
-<h2>Remove an album from your list.</h2>
+    <h1>{{heading}}</h1>
+    <a href="{{url_for('index')}}">Home</a>
+    <a href="{{url_for('albums')}}">View Albums</a>
+    <a href="{{url_for('update')}}">Add Album</a>
+    <h2>Remove an album from your list.</h2>
+    <form method="post" action="" enctype="multipart/form-data">
+        <p>
+            <label for="album_title">Album Title:</label>
+            <input type="text" name="album_title" id="album_title">
+        <p>
+        <input type="submit" value="Submit"></p>
+    </form>
 </body>
 </html>
