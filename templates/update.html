@@ -10,7 +10,7 @@
     <a href="{{url_for('albums')}}">View Albums</a>
     <a href="{{url_for('remove')}}">Remove Album</a>
     <h2>Add your current favorite!</h2>
-    <form method="post" action="" enctype="multipart/form-data">
+    <form method="post" id="add_album" action="" enctype="multipart/form-data">
         <p>
             <input type="file" name="file" accept=".png,.jfif,.jpg,.jpeg"></p>
             <label for="album_title">Album Title:</label>
@@ -22,5 +22,7 @@
         <p>
         <input type="submit" value="Submit"></p>
     </form>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script src="validation.js"></script>
 </body>
 </html>
