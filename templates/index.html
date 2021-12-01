@@ -2,13 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Tyler's Top 5</title>
+    {% if title %}
+        <title>{{ title }}</title>
+    {% else %}
+        <title>Tyler's Top 5</title>
+    {% endif %}
 </head>
 <body>
     <h1>{{heading}}</h1>
-    <h2>Fall 2021</h2>
-    <a href="{{url_for('albums')}}">View Albums</a>
-    <a href="{{url_for('update')}}">Add Album</a>
-    <a href="{{url_for('remove')}}">Remove Album</a>
+    <h2>{{heading2}}</h2>
+        <div>
+            <a href="{{url_for('index')}}">Home</a>
+            <a href="{{url_for('albums')}}">View Albums</a>
+            <a href="{{url_for('update')}}">Add Album</a>
+            <a href="{{url_for('remove')}}">Remove Album</a>
+        </div>
+    {% block content %}{% endblock %}
 </body>
 </html>

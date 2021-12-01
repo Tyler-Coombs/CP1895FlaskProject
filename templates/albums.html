@@ -1,15 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Tyler's Top 5</title>
-</head>
-<body>
-    <h1>{{heading}}</h1>
-    <a href="{{url_for('index')}}">Home</a>
-    <a href="{{url_for('update')}}">Add Album</a>
-    <a href="{{url_for('remove')}}">Remove Album</a>
-    <h2>Here is what I am currently listening to:</h2>
+{% extends "index.html" %}
+{% block content %}
     {% for image in images %}
         <img src="static/album_covers/{{image[3]}}">
         <h2>Artist: {{image[1]}}</h2>
@@ -17,6 +7,5 @@
         <h3>Genre: {{image[2]}}</h3>
         <br>
     {% endfor %}
+{% endblock content %}
 
-</body>
-</html>
