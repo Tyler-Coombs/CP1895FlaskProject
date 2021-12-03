@@ -1,17 +1,29 @@
-{% extends "index.html" %}
+{% extends "layout.html" %}
 {% block content %}
-    <form method="post" id="add_album" action="" enctype="multipart/form-data">
+    <form method="post" id="update_form" action="" enctype="multipart/form-data">
         <p>
-            <input type="file" name="file" accept=".png,.jfif,.jpg,.jpeg"></p>
-            <label for="album_title">Album Title:</label>
-            <input type="text" name="album_title" id="album_title">
-            <label for="album_artist">Artist:</label>
-            <input type="text" name="album_artist" id="album_artist">
-            <label for="genre">Genre:</label>
-            <input type="text" name="genre" id="genre">
+            <div>
+                <input type="file" name="file" accept=".png,.jfif,.jpg,.jpeg"></p>
+            </div>
+            <div>
+                <label for="album_title">Album Title:</label>
+                <input type="text" name="album_title" id="album_title">
+                <span>*</span>
+            </div>
+            <div>
+                <label for="album_artist">Artist:</label>
+                <input type="text" name="album_artist" id="album_artist">
+                <span>*</span>
+            </div>
+            <div>
+                <label for="genre">Genre:</label>
+                <input type="text" name="genre" id="genre">
+                <span>*</span>
+            </div>
         <p>
         <input type="submit" value="Submit"></p>
     </form>
-    <script src="static/validation.js"></script>
-	<script src="static/jquery.js"></script>
 {% endblock content %}
+{% block script %}
+<script src="{{url_for('static', filename='validation.js')}}"></script>
+{% endblock %}

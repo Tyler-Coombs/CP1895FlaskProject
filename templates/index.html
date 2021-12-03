@@ -1,24 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" name="viewport" content="initial-scale=1, width=device-width">
-    {% if title %}
-        <title>{{ title }}</title>
-    {% else %}
-        <title>Tyler's Top 5</title>
-    {% endif %}
-</head>
-<body>
-    <h1>{{heading}}</h1>
-    <h2>{{heading2}}</h2>
-        <div>
-            <a href="{{url_for('index')}}">Home</a>
-            <a href="{{url_for('albums')}}">View Albums</a>
-            <a href="{{url_for('update')}}">Add Album</a>
-            <a href="{{url_for('remove')}}">Remove Album</a>
-            <a href="{{url_for('login')}}">Login</a>
-            <a href="{{url_for('logout')}}">LOGOUT</a>
-        </div>
-    {% block content %}{% endblock %}
-</body>
-</html>
+{% extends "layout.html" %}
+{% block content %}
+        <p></p>
+        <p>Take a look at what I am currently listening to from the 'Albums' link above.</p>
+{% endblock content %}

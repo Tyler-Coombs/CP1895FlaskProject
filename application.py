@@ -3,6 +3,7 @@ from contextlib import closing
 import imghdr
 import os
 from flask import Flask, render_template, redirect, request, abort, session
+from flask_session import Session
 from werkzeug.utils import secure_filename
 from datetime import timedelta
 
@@ -12,8 +13,7 @@ app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024
 app.config['UPLOAD_EXTENSIONS'] = ['.jpg', '.png', '.jfif']
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
-app.config["SECRET_KEY"] = "gordie"
-app.permanent_session_lifetime = timedelta(hours=12)
+Session(app)
 
 conn = sqlite3.connect("albums.db", check_same_thread=False)
 
@@ -21,42 +21,32 @@ conn = sqlite3.connect("albums.db", check_same_thread=False)
 @app.route("/home")
 @app.route("/")
 def index():
-    heading = "Tyler's Top 5"
-    heading2 = "Fall 2021"
-    if "user" in session:
-        user = session["user"]
-        return render_template("index.html", heading=heading, heading2=heading2)
+    heading2 = "Welcome"
+    if not session.get("name"):
+        return render_template("index.html", heading2=heading2)
     else:
-        return render_template("index.html", heading=heading, heading2=heading2)
+        user = session["name"]
+        return render_template("index.html", heading2=heading2, user=user)
 
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
-    heading = "Tyler's Top 5"
     heading2 = "User Login"
-    heading3 = "You are now logged in."
     if request.method == "POST":
-        session.permanent = True
-        user = request.form["name"]
-        session["user"] = user
-        return redirect("/home")
-    else:
-        if "user" in session:
-            return redirect("/home")
-
-        return render_template("login.html", heading=heading, heading2=heading2)
+        session["name"] = request.form.get("name")
+        return redirect("/")
+    return render_template("login.html", heading2=heading2)
 
 
 @app.route("/logout")
 def logout():
-    session.pop("user", None)
-    return redirect("/login")
-
+    session["name"] = None
+    logout_message = "Thank you for logging out. Please visit again!"
+    return render_template("message.html", message=logout_message)
 
 
 @app.route("/albums")
 def albums():
-    heading = "Tyler's Top 5"
     heading2 = "Here is what I've been listening to:"
     with closing(conn.cursor()) as c:
         query = "SELECT * from Albums"
@@ -65,23 +55,17 @@ def albums():
         images = []
         for result in results:
             images.append((result[1], result[2], result[3], result[4]))
-    return render_template("albums.html", images=images, heading=heading, heading2=heading2)
+    return render_template("albums.html", images=images, heading2=heading2)
 
 
 @app.route("/update")
 def update():
-    logged_in = False
-    if "user" in session:
-        logged_in = True
-    if logged_in:
-        title = "Update"
-        heading = "Update"
-        heading2 = "Add your favorite!"
-        return render_template("update.html", heading=heading, title=title, heading2=heading2)
+    if not session.get("name"):
+        return render_template("login.html", )
     else:
-        heading = "Tyler's Top 5"
-        heading2 = "You must log in to add an album."
-        return render_template("index.html", heading=heading, heading2=heading2)
+        title = "Update"
+        heading2 = "Add your favorite!"
+        return render_template("update.html", title=title, heading2=heading2)
 
 
 @app.route("/update", methods=['POST'])
@@ -105,18 +89,12 @@ def getUpdateFormData():
 
 @app.route("/remove")
 def remove():
-    logged_in = False
-    if "user" in session:
-        logged_in = True
-    if logged_in:
+    if not session.get("name"):
+        return redirect("/login")
+    else:
         title = "Remove"
         heading2 = "Which album is not on your list?"
-        heading = "Remove An Album"
-        return render_template("remove.html", heading=heading, title=title, heading2=heading2)
-    else:
-        heading = "Tyler's Top 5"
-        heading2 = "You must log in to remove an album."
-        return render_template("index.html", heading=heading, heading2=heading2)
+        return render_template("remove.html", title=title, heading2=heading2)
 
 
 @app.route("/remove", methods=['POST'])
@@ -127,6 +105,11 @@ def getRemoveFormData():
         c.execute(query, album_title)
         conn.commit()
     return redirect("albums")
+
+
+@app.route("/message")
+def message():
+    return render_template("message.html")
 
 
 def validate_album(stream):

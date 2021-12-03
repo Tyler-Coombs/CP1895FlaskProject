@@ -1,11 +1,13 @@
-{% extends "index.html" %}
+{% extends "layout.html" %}
 {% block content %}
-    <form action="" method="post">
-        <p></p>
-        <label for="name">Name:</label>
-        <input type="text" name="name" id="name"/>
-        <input type="submit" value="LOGIN" />
-    </form>
-    <script src="static/validation.js"></script>
-	<script src="static/jquery.js"></script>
+    {% if session.name %}
+        You are logged in as {{ session.name }}. <a class="nav-item nav-link" href="{{url_for('logout')}}">LOGOUT</a>
+    {% else %}
+        <form action="/login" method="post" id="login_form">
+            <p></p>
+            <input autocomplete="off" autofocus type="text" placeholder="Name" name="name" id="user_name"/>
+            <input type="submit" value="LOGIN" />
+            <span id="login_error">*</span>
+        </form>
+    {% endif %}
 {% endblock content %}
