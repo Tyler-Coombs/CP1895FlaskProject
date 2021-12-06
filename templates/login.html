@@ -5,9 +5,9 @@
     {% else %}
         <form action="/login" method="post" id="login_form">
             <p></p>
-            <input autocomplete="off" autofocus type="text" placeholder="Name" name="name" id="user_name"/>
+            <input class="form-control" autocomplete="off" autofocus type="text" placeholder="Name" name="name" id="user_name"/>
             <input type="submit" value="LOGIN" />
-            <span id="login_error">*</span>
+            <span id="login_error" class="text-warning">*</span>
         </form>
     {% endif %}
 {% endblock content %}

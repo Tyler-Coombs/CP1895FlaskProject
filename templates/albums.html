@@ -1,11 +1,16 @@
 {% extends "layout.html" %}
 {% block content %}
     {% for image in images %}
-        <img src="static/album_covers/{{image[3]}}">
-        <h2>Artist: {{image[1]}}</h2>
-        <h2>Title: {{image[0]}}</h2>
-        <h3>Genre: {{image[2]}}</h3>
-        <br>
+    <p></p>
+    <div class="card" style="width: 600px;">
+        <img src="static/album_covers/{{image[3]}}" class="card-img-top">
+        <div class="card-body">
+            <h2 class="card-text">Artist: {{image[1]}}</h2>
+            <h2 class="card-text">Title: {{image[0]}}</h2>
+            <h3 class="card-text">Genre: {{image[2]}}</h3>
+        </div>
+    </div>
+    <br>
     {% endfor %}
 {% endblock content %}
 

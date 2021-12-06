@@ -18,6 +18,15 @@ Session(app)
 conn = sqlite3.connect("albums.db", check_same_thread=False)
 
 
+def validate_album(stream):
+    header = stream.read(512)
+    stream.seek(0)
+    format = imghdr.what(None, header)
+    if not format:
+        return None
+    return '.' + (format if format != 'jpeg' else 'jpg')
+
+
 @app.route("/home")
 @app.route("/")
 def index():
@@ -77,7 +86,8 @@ def getUpdateFormData():
     genre = request.values["genre"]
     if filename != '':
         file_ext = os.path.splitext(filename)[1]
-        if file_ext not in app.config['UPLOAD_EXTENSIONS']:
+        if file_ext not in app.config['UPLOAD_EXTENSIONS'] or \
+                file_ext != validate_album(uploaded_file.stream):
             abort(400)
         uploaded_file.save(os.path.join(app.config['UPLOAD_PATH'], filename))
         with closing(conn.cursor()) as c:
@@ -112,5 +122,5 @@ def message():
     return render_template("message.html")
 
 
-def validate_album(stream):
-    pass
+
+
