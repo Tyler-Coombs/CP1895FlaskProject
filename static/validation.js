@@ -22,7 +22,6 @@ $(document).ready( () => {
                 isValid = false;
             } else {
                 $("#album_title").next().text("");
-                //$("#album_title").val(albumTitle);
             }
 
 
@@ -32,7 +31,6 @@ $(document).ready( () => {
                 isValid = false;
             } else {
                 $("#album_artist").next().text("");
-                //$("#album_artist").val(albumArtist);
             }
 
 
