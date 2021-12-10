@@ -74,7 +74,7 @@ $(document).ready( () => {
         evt => {
             let isValid = true;
 
-            let userName = $("#user_name").val().trim()
+            let userName = $("#user_name").val().trim();
             if (userName == "") {
                 $("#login_error").text("Please enter a user name to log in.");
                 isValid = false;

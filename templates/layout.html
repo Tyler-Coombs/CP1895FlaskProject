@@ -8,31 +8,30 @@
     {% else %}
         <title>Tyler's Top Albums</title>
     {% endif %}
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="{{url_for('static', filename='validation.js')}}"></script>
 </head>
-<body class="p-3 mb-2 bg-info text-dark">
-    <h1 class="text-warning" style="--bs-text-opacity: .5;">Tyler's Top Albums - Fall 2021</h1>
-    <h2 class="text-white">{{heading2}}</h2>
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-                <a class="nav-item nav-link" href="{{url_for('index')}}">Home <span class="sr-only">(current)</span></a>
-                <a class="nav-item nav-link" href="{{url_for('albums')}}">View Tyler's Albums</a>
-                <a class="nav-item nav-link" href="{{url_for('userAlbums')}}">View Your Albums</a>
-                <a class="nav-item nav-link" href="{{url_for('update')}}">Add Album</a>
-                <a class="nav-item nav-link" href="{{url_for('remove')}}">Remove Album</a>
-                <a class="nav-item nav-link" href="{{url_for('login')}}">LOGIN</a>
-                <a class="nav-item nav-link" href="{{url_for('logout')}}">LOGOUT</a>
+<body class="p-3 mb-2 bg-info text-dark" style="border: 5px solid antiquewhite; border-radius: 10px; text-align: center">
+    <div style="background-color: gray; border: 5px solid antiquewhite; border-radius: 10px;">
+        <h1 style="color: goldenrod;
+            font-family: 'Arial Rounded MT Bold'; padding: 10px; text-align: center">Tyler's Top Albums - Fall 2021</h1>
+        <h2 style="font-family: 'Arial Rounded MT Bold'; color: antiquewhite">{{heading2}}</h2>
+        <nav class="navbar navbar-expand-lg" style="background-color: antiquewhite; font-size: 20px;">
+            <a class="navbar-brand" href="#" style="color: gray">Navbar</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link" href="{{url_for('index')}}">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-item nav-link" href="{{url_for('albums')}}">View Tyler's Albums</a>
+                    <a class="nav-item nav-link" href="{{url_for('userAlbums')}}">View Your Albums</a>
+                    <a class="nav-item nav-link" href="{{url_for('update')}}">Add Album</a>
+                    <a class="nav-item nav-link" href="{{url_for('remove')}}">Remove Album</a>
+                    <a class="nav-item nav-link" href="{{url_for('login')}}">LOGIN</a>
+                    <a class="nav-item nav-link" href="{{url_for('logout')}}">LOGOUT</a>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
+    </div>
     {% block content %}{% endblock %}
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

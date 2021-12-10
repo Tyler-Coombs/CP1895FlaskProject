@@ -1,9 +1,10 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h2>{{heading3}}</h2>
+    <p></p>
+    <h2 style="color:goldenrod">{{heading3}}</h2>
     {% for album in albums %}
     <p></p>
-    <div class="card" style="width: 600px;">
+    <div class="card" style="width: 600px; float: none; margin: 0 auto 10px;">
         <img src="static/images/{{album[3]}}" class="card-img-top">
         <div class="card-body">
             <h2 class="card-text">Artist: {{album[1]}}</h2>

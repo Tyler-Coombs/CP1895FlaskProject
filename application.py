@@ -2,10 +2,10 @@ import sqlite3
 from contextlib import closing
 import imghdr
 import os
-from flask import Flask, flash, render_template, redirect, request, abort, session, send_from_directory
+from flask import Flask, flash, render_template, redirect, request, session, abort, send_from_directory
 from flask_session import Session
 from werkzeug.utils import secure_filename
-from datetime import timedelta
+
 
 app = Flask(__name__)
 app.config['UPLOAD_PATH'] = 'venv/static/images'
@@ -30,10 +30,11 @@ def validate_album(stream):
 @app.route("/home")
 @app.route("/")
 def index():
-    heading2 = "Welcome"
     if not session.get("name"):
+        heading2 = "Welcome"
         return render_template("index.html", heading2=heading2)
     else:
+        heading2 = "Welcome " + session.get("name")
         user = session["name"]
         return render_template("index.html", heading2=heading2, user=user)
 
@@ -49,8 +50,12 @@ def login():
 
 @app.route("/logout")
 def logout():
-    session["name"] = None
-    logout_message = "Thank you for logging out. Please visit again!"
+    if not session.get("name"):
+        logout_message = "You are not logged in."
+    else:
+        logout_message = "Thank you for logging out. Please visit again " + session.get("name") + "!"
+        session["name"] = None
+
     return render_template("message.html", message=logout_message)
 
 
@@ -103,7 +108,7 @@ def userAlbums():
 @app.route("/update")
 def update():
     if not session.get("name"):
-        return render_template("login.html", )
+        return redirect("/login")
     else:
         title = "Update"
         heading2 = "Create your own favorites list!"
