@@ -17,10 +17,10 @@ Download all of the files in my project repository into your own folder (listed 
  </ul>
 
 Open the project folder in your preferred IDE. I used PyCharm on MACOSX - it will automatically open your project in a venv (virtual environment). 
-In this case, the virtual environment is also already activated. 
+In this case, the virtual environment is also already activated. If you are not on MACOSX, you will have to take additional steps to use a venv and then to activate it.
 
 <h3>Step 2:</h3> 
-In the IDE terminal, ensure you are in the project directory and install flask using the following commands:
+In the IDE terminal (inside the venv), ensure you are in the project directory and install flask using the following commands:
 
 <pre>
 <code>
